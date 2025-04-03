@@ -10,7 +10,7 @@ class Entry extends Model
     protected $table = 'wp_wpforms_entries';
 
 
-    public function scopeFilters($query, $search = null, $position = null)
+    public function scopeFilters($query, $search = null, $position = null, $formDate = null, $toDate = null)
     {
         if (!empty($search)) {
             return $query->where(function ($q) use ($search) {
@@ -23,7 +23,11 @@ class Entry extends Model
         if (!empty($position)) {
             return $query->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(fields, '$.\"2\".value')) = ?", [$position]);
         }
-        
+
+        if (!empty($formDate) && !empty($toDate)) {
+            return $query->whereBetween('date', [$formDate, $toDate]);
+        }
+
         return $query;
     }
 
