@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'entry_id', 'user_id', 'body'
+        'submission_id', 'user_id', 'body'
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
